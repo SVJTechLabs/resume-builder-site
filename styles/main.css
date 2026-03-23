@@ -128,6 +128,48 @@ body {
   }
 }
 
+/* Sidebar Resizer */
+.resizer {
+  width: 6px;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 50;
+  transition: background 0.2s, width 0.2s;
+  position: relative;
+  margin-left: -3px; /* Center hit area on border */
+}
+
+.resizer::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  transition: background 0.2s, width 0.2s;
+}
+
+.resizer:hover::after,
+.resizer.active::after {
+  background: var(--accent);
+  width: 2px;
+}
+
+.resizer:hover {
+  background: rgba(184, 76, 46, 0.05);
+}
+
+.is-resizing {
+  user-select: none;
+}
+
+@media (max-width: 1024px) {
+  .resizer {
+    display: none;
+  }
+}
+
 /* ========================================
    Buttons
    ======================================== */

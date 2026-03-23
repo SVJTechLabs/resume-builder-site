@@ -129,6 +129,11 @@ function initApp() {
     formManager.init(resumeData);
     designManager.init(resumeData.settings);
     previewManager.init();
+    
+    // Instantiate and initialize SidebarResizer
+    sidebarResizer = new SidebarResizer();
+    sidebarResizer.init();
+
     previewManager.render(resumeData);
     
     // Initialize history with starting state
