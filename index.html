@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ResumeForge v1.0",
+  "url": "https://resumeforge.app",
+  "description": "Professional, ATS-optimized resume builder with real-time preview and free PDF export.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +38,7 @@
   <link rel="stylesheet" href="styles/templates.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
   <div id="app">
     <!-- Header -->
     <header class="app-header">
@@ -40,7 +57,7 @@
 
     <div class="app-body">
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="main-content">
         <!-- Resume Selector (Mobile) -->
         <div class="mobile-resume-selector">
           <select id="mobile-resume-select"></select>
