@@ -1,0 +1,655 @@
+/* ========================================
+   ResumeForge v1.0 - Resume Templates
+   ======================================== */
+
+/* ========================================
+   MODERN TEMPLATE
+   ======================================== */
+
+.template-modern {
+  --t-primary: var(--color-primary, #475569);
+  --t-accent: var(--color-accent, #b84c2e);
+  --t-text: #1e293b;
+  --t-muted: #64748b;
+  --t-border: #e2e8f0;
+}
+
+.template-modern .r-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--t-primary);
+  margin-bottom: 24px;
+}
+
+.template-modern .r-header-left {
+  flex: 1;
+}
+
+.template-modern .r-name {
+  font-family: var(--font-heading, Georgia, serif);
+  font-size: 28pt;
+  font-weight: 700;
+  color: var(--t-text);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.template-modern .r-title {
+  font-size: 13pt;
+  color: var(--t-muted);
+  font-weight: 500;
+}
+
+.template-modern .r-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+  border: 3px solid var(--t-primary);
+}
+
+.template-modern .r-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 10pt;
+  color: var(--t-muted);
+  margin-top: 12px;
+}
+
+.template-modern .r-contact span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.template-modern .r-section {
+  margin-bottom: 20px;
+}
+
+.template-modern .r-section-title {
+  font-size: 11pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--t-primary);
+  border-bottom: 2px solid var(--t-primary);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.template-modern .r-summary {
+  font-size: 11pt;
+  line-height: 1.7;
+  color: var(--t-text);
+}
+
+.template-modern .r-job {
+  margin-bottom: 16px;
+}
+
+.template-modern .r-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.template-modern .r-job-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--t-text);
+}
+
+.template-modern .r-job-date {
+  font-size: 10pt;
+  color: var(--t-muted);
+  font-family: 'Courier New', monospace;
+}
+
+.template-modern .r-job-company {
+  font-size: 11pt;
+  color: var(--t-accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.template-modern .r-job-desc {
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: var(--t-text);
+  padding-left: 0;
+}
+
+.template-modern .r-job-desc li {
+  margin-bottom: 3px;
+  list-style: disc;
+  margin-left: 18px;
+}
+
+.template-modern .r-edu-item {
+  margin-bottom: 12px;
+}
+
+.template-modern .r-edu-degree {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--t-text);
+}
+
+.template-modern .r-edu-school {
+  font-size: 11pt;
+  color: var(--t-accent);
+  font-weight: 600;
+}
+
+.template-modern .r-edu-meta {
+  font-size: 10pt;
+  color: var(--t-muted);
+  margin-top: 2px;
+}
+
+.template-modern .r-skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.template-modern .r-skill {
+  background: var(--t-primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 10pt;
+}
+
+.template-modern .r-project {
+  margin-bottom: 14px;
+}
+
+.template-modern .r-project-name {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--t-text);
+}
+
+.template-modern .r-project-tech {
+  font-size: 9pt;
+  color: var(--t-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin: 2px 0 4px;
+}
+
+.template-modern .r-project-desc {
+  font-size: 10.5pt;
+  color: var(--t-text);
+  line-height: 1.5;
+}
+
+.template-modern .r-cert {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  font-size: 11pt;
+}
+
+.template-modern .r-cert-name {
+  font-weight: 600;
+  color: var(--t-text);
+}
+
+.template-modern .r-cert-issuer {
+  color: var(--t-muted);
+  font-size: 10pt;
+}
+
+.template-modern .r-cert-date {
+  color: var(--t-muted);
+  font-size: 10pt;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+}
+
+.template-modern .r-lang {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 11pt;
+}
+
+.template-modern .r-ref {
+  margin-bottom: 12px;
+  font-size: 11pt;
+}
+
+.template-modern .r-ref-name {
+  font-weight: 700;
+  color: var(--t-text);
+}
+
+.template-modern .r-ref-title {
+  color: var(--t-muted);
+  font-size: 10pt;
+}
+
+/* ========================================
+   CLASSIC TEMPLATE
+   ======================================== */
+
+.template-classic {
+  --t-primary: var(--color-primary, #1e293b);
+  --t-accent: var(--color-accent, #475569);
+}
+
+.template-classic .r-header {
+  text-align: center;
+  padding: 30px 20px;
+  background: var(--t-primary);
+  color: white;
+  margin: -20mm -20mm 24px -20mm;
+  padding-left: 20mm;
+  padding-right: 20mm;
+}
+
+.template-classic .r-name {
+  font-family: var(--font-heading, Georgia, serif);
+  font-size: 32pt;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.template-classic .r-title {
+  font-size: 14pt;
+  font-weight: 400;
+  opacity: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.template-classic .r-contact {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 16px;
+  font-size: 10pt;
+  opacity: 0.85;
+}
+
+.template-classic .r-contact span::after {
+  content: '|';
+  margin-left: 24px;
+  opacity: 0.5;
+}
+
+.template-classic .r-contact span:last-child::after {
+  content: none;
+}
+
+.template-classic .r-section {
+  margin-bottom: 22px;
+}
+
+.template-classic .r-section-title {
+  font-family: var(--font-heading, Georgia, serif);
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--t-primary);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid var(--t-primary);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.template-classic .r-summary {
+  text-align: center;
+  font-size: 11pt;
+  line-height: 1.7;
+  padding: 0 20px;
+}
+
+.template-classic .r-job {
+  margin-bottom: 18px;
+}
+
+.template-classic .r-job-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--t-primary);
+}
+
+.template-classic .r-job-company {
+  font-size: 11pt;
+  font-style: italic;
+  color: var(--t-accent);
+}
+
+.template-classic .r-job-date {
+  float: right;
+  font-size: 10pt;
+  color: #666;
+  font-style: italic;
+}
+
+.template-classic .r-job-desc {
+  clear: both;
+  font-size: 10.5pt;
+  line-height: 1.6;
+  margin-top: 6px;
+}
+
+/* ========================================
+   MINIMAL TEMPLATE
+   ======================================== */
+
+.template-minimal {
+  --t-primary: var(--color-primary, #171717);
+  --t-muted: #737373;
+}
+
+.template-minimal .r-header {
+  border-bottom: 1px solid #d4d4d4;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.template-minimal .r-name {
+  font-size: 24pt;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.template-minimal .r-title {
+  font-size: 12pt;
+  color: var(--t-muted);
+  font-weight: 400;
+}
+
+.template-minimal .r-contact {
+  display: flex;
+  gap: 20px;
+  font-size: 10pt;
+  color: var(--t-muted);
+  margin-top: 12px;
+}
+
+.template-minimal .r-section {
+  margin-bottom: 20px;
+}
+
+.template-minimal .r-section-title {
+  font-size: 9pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--t-muted);
+  margin-bottom: 12px;
+}
+
+.template-minimal .r-job {
+  margin-bottom: 14px;
+}
+
+.template-minimal .r-job-title {
+  font-size: 11pt;
+  font-weight: 600;
+}
+
+.template-minimal .r-job-company {
+  font-size: 10pt;
+  color: var(--t-muted);
+}
+
+.template-minimal .r-job-date {
+  font-size: 9pt;
+  color: #a3a3a3;
+  float: right;
+}
+
+/* ========================================
+   EXECUTIVE TEMPLATE
+   ======================================== */
+
+.template-executive {
+  --t-primary: var(--color-primary, #1e3a5f);
+  --t-accent: var(--color-accent, #475569);
+  --t-sidebar: #f8fafc;
+}
+
+.template-executive {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 30px;
+}
+
+.template-executive .r-sidebar {
+  background: var(--t-sidebar);
+  margin: -20mm 0 -20mm -20mm;
+  padding: 20mm 20px 20mm 20mm;
+  border-right: 1px solid #e2e8f0;
+}
+
+.template-executive .r-main {
+  padding-top: 10px;
+}
+
+.template-executive .r-name {
+  font-size: 20pt;
+  font-weight: 700;
+  color: var(--t-primary);
+  margin-bottom: 4px;
+}
+
+.template-executive .r-title {
+  font-size: 11pt;
+  color: var(--t-accent);
+  font-weight: 600;
+}
+
+.template-executive .r-contact-sidebar {
+  margin-top: 24px;
+  font-size: 9pt;
+}
+
+.template-executive .r-contact-item {
+  margin-bottom: 10px;
+  color: #475569;
+}
+
+.template-executive .r-contact-label {
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 2px;
+}
+
+.template-executive .r-section-main {
+  margin-bottom: 20px;
+}
+
+.template-executive .r-section-title {
+  font-size: 10pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--t-primary);
+  border-bottom: 2px solid var(--t-primary);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+/* ========================================
+   CREATIVE TEMPLATE
+   ======================================== */
+
+.template-creative {
+  --t-primary: var(--color-primary, #7f1d1d);
+  --t-accent: var(--color-accent, #b84c2e);
+}
+
+.template-creative .r-header {
+  position: relative;
+  padding-left: 30px;
+  border-left: 5px solid var(--t-primary);
+  margin-bottom: 28px;
+}
+
+.template-creative .r-name {
+  font-size: 36pt;
+  font-weight: 800;
+  color: var(--t-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.template-creative .r-title {
+  font-size: 14pt;
+  color: var(--t-accent);
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.template-creative .r-contact {
+  display: flex;
+  gap: 24px;
+  font-size: 10pt;
+  color: #666;
+  margin-top: 16px;
+}
+
+.template-creative .r-section {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 24px;
+}
+
+.template-creative .r-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  background: var(--t-primary);
+  border-radius: 50%;
+}
+
+.template-creative .r-section-title {
+  font-size: 12pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--t-primary);
+  margin-bottom: 12px;
+}
+
+/* ========================================
+   TWO-COLUMN TEMPLATE
+   ======================================== */
+
+.template-two-column {
+  --t-primary: var(--color-primary, #334155);
+  --t-sidebar: #f1f5f9;
+}
+
+.template-two-column {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 30px;
+}
+
+.template-two-column .r-left-col {
+  background: var(--t-sidebar);
+  margin: -20mm 0 -20mm -20mm;
+  padding: 20mm 20px 20mm 20mm;
+}
+
+.template-two-column .r-right-col {
+  padding-top: 10px;
+}
+
+.template-two-column .r-name {
+  font-size: 18pt;
+  font-weight: 700;
+  color: var(--t-primary);
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.template-two-column .r-title {
+  font-size: 10pt;
+  color: #64748b;
+}
+
+.template-two-column .r-contact-left {
+  margin-top: 20px;
+  font-size: 9pt;
+}
+
+.template-two-column .r-contact-item {
+  margin-bottom: 8px;
+  color: #475569;
+  word-break: break-all;
+}
+
+.template-two-column .r-skills-left {
+  margin-top: 24px;
+}
+
+.template-two-column .r-skills-title {
+  font-size: 9pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--t-primary);
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.template-two-column .r-skill-left {
+  font-size: 9.5pt;
+  margin-bottom: 4px;
+  color: #334155;
+}
+
+.template-two-column .r-section-right {
+  margin-bottom: 18px;
+}
+
+.template-two-column .r-section-title {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--t-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--t-primary);
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+
+/* ========================================
+   COLOR THEME VARIANTS
+   ======================================== */
+
+/* Applied via data-color attributes */
+[data-color="slate"] { --color-primary: #475569; --color-accent: #64748b; }
+[data-color="navy"] { --color-primary: #1e3a5f; --color-accent: #334155; }
+[data-color="forest"] { --color-primary: #166534; --color-accent: #15803d; }
+[data-color="wine"] { --color-primary: #7f1d1d; --color-accent: #991b1b; }
+[data-color="teal"] { --color-primary: #0f766e; --color-accent: #14b8a6; }
+[data-color="indigo"] { --color-primary: #3730a3; --color-accent: #6366f1; }
+[data-color="rose"] { --color-primary: #be123c; --color-accent: #e11d48; }
+[data-color="amber"] { --color-primary: #b45309; --color-accent: #d97706; }
+[data-color="mono"] { --color-primary: #171717; --color-accent: #404040; }

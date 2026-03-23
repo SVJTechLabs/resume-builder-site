@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeForge v1.0 - Professional Resume Builder</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/templates.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">Resume<span>Forge</span> <small>v1.0</small></div>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="btn-new-resume">+ New Resume</button>
+        <div class="dropdown" id="resumes-dropdown">
+          <button class="btn btn-ghost dropdown-toggle">
+            My Resumes <span class="chevron">▼</span>
+          </button>
+          <div class="dropdown-menu" id="saved-resumes-list"></div>
+        </div>
+        <div class="undo-redo-group" style="display:flex;gap:4px;margin:0 8px;border-left:1px solid rgba(255,255,255,0.2);border-right:1px solid rgba(255,255,255,0.2);padding:0 8px">
+          <button class="btn btn-ghost btn-icon" id="btn-undo" title="Undo (Ctrl+Z)" disabled>↶</button>
+          <button class="btn btn-ghost btn-icon" id="btn-redo" title="Redo (Ctrl+Y)" disabled>↷</button>
+        </div>
+        <button class="btn btn-ghost" id="btn-import">Import JSON</button>
+        <button class="btn btn-secondary" id="btn-export">Export JSON</button>
+        <button class="btn btn-primary" id="btn-download">Download PDF</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Resume Selector (Mobile) -->
+        <div class="mobile-resume-selector">
+          <select id="mobile-resume-select"></select>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+          <div class="progress-header">
+            <span>Completion</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+          <div class="progress-hints" id="progress-hints"></div>
+        </div>
+
+        <!-- Tabs -->
+        <nav class="tabs">
+          <button class="tab active" data-tab="basics">Basics</button>
+          <button class="tab" data-tab="profile">Profile</button>
+          <button class="tab" data-tab="work">Experience</button>
+          <button class="tab" data-tab="education">Education</button>
+          <button class="tab" data-tab="skills">Skills</button>
+          <button class="tab" data-tab="projects">Projects</button>
+          <button class="tab" data-tab="certs">Certificates</button>
+          <button class="tab" data-tab="languages">Languages</button>
+          <button class="tab" data-tab="references">References</button>
+          <button class="tab" data-tab="design">Design</button>
+        </nav>
+
+        <!-- Tab Panels -->
+        <div class="panels">
+          <!-- Basics Panel -->
+          <div class="panel active" id="panel-basics">
+            <h3 class="panel-title">Personal Information</h3>
+            <div class="form-grid">
+              <div class="form-group wide">
+                <label for="input-name">Full Name *</label>
+                <input type="text" id="input-name" placeholder="e.g. Priya Sharma" data-field="name">
+                <span class="error-msg"></span>
+              </div>
+              <div class="form-group wide">
+                <label for="input-title">Professional Title</label>
+                <input type="text" id="input-title" placeholder="e.g. Senior Software Engineer" data-field="title">
+              </div>
+              <div class="form-group">
+                <label for="input-email">Email *</label>
+                <input type="email" id="input-email" placeholder="you@email.com" data-field="email">
+                <span class="error-msg"></span>
+              </div>
+              <div class="form-group">
+                <label for="input-phone">Phone</label>
+                <input type="tel" id="input-phone" placeholder="+91 98765 43210" data-field="phone">
+              </div>
+              <div class="form-group">
+                <label for="input-location">Location</label>
+                <input type="text" id="input-location" placeholder="Hyderabad, India" data-field="location">
+              </div>
+              <div class="form-group">
+                <label for="input-website">Website</label>
+                <input type="url" id="input-website" placeholder="yourwebsite.com" data-field="website">
+              </div>
+              <div class="form-group">
+                <label for="input-linkedin">LinkedIn</label>
+                <input type="text" id="input-linkedin" placeholder="linkedin.com/in/username" data-field="linkedin">
+              </div>
+              <div class="form-group">
+                <label for="input-github">GitHub</label>
+                <input type="text" id="input-github" placeholder="github.com/username" data-field="github">
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Photo Panel -->
+          <div class="panel" id="panel-profile">
+            <h3 class="panel-title">Profile Photo</h3>
+            <div class="photo-upload-section">
+              <div class="photo-preview" id="photo-preview">
+                <div class="photo-placeholder">
+                  <svg viewBox="0 0 24 24" width="48" height="48"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                  <span>No photo selected</span>
+                </div>
+              </div>
+              <div class="photo-actions">
+                <input type="file" id="photo-input" accept="image/*" hidden>
+                <button class="btn btn-secondary" id="btn-upload-photo">Upload Photo</button>
+                <button class="btn btn-ghost" id="btn-remove-photo" disabled>Remove</button>
+              </div>
+              <p class="photo-hint">Recommended: 400×400px, max 2MB. JPG or PNG.</p>
+            </div>
+          </div>
+
+          <!-- Work Experience Panel -->
+          <div class="panel" id="panel-work">
+            <h3 class="panel-title">Work Experience</h3>
+            <div class="items-list" id="work-list"></div>
+            <button class="btn btn-add" id="btn-add-work">+ Add Experience</button>
+            <div class="panel-hint">Tip: Use bullet points (•) for achievements. Quantify results when possible.</div>
+          </div>
+
+          <!-- Education Panel -->
+          <div class="panel" id="panel-education">
+            <h3 class="panel-title">Education</h3>
+            <div class="items-list" id="education-list"></div>
+            <button class="btn btn-add" id="btn-add-education">+ Add Education</button>
+          </div>
+
+          <!-- Skills Panel -->
+          <div class="panel" id="panel-skills">
+            <h3 class="panel-title">Skills & Technologies</h3>
+            <div class="skills-input-section">
+              <div class="skill-input-row">
+                <input type="text" id="skill-input" placeholder="Enter a skill...">
+                <select id="skill-level">
+                  <option value="">Level (optional)</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                  <option value="Expert">Expert</option>
+                </select>
+                <button class="btn btn-secondary" id="btn-add-skill">Add</button>
+              </div>
+              <div class="skills-tags" id="skills-tags"></div>
+            </div>
+            <div class="quick-skills">
+              <label>Quick-add popular skills:</label>
+              <div class="quick-skills-grid" id="quick-skills-grid"></div>
+            </div>
+          </div>
+
+          <!-- Projects Panel -->
+          <div class="panel" id="panel-projects">
+            <h3 class="panel-title">Projects</h3>
+            <div class="items-list" id="projects-list"></div>
+            <button class="btn btn-add" id="btn-add-project">+ Add Project</button>
+          </div>
+
+          <!-- Certificates Panel -->
+          <div class="panel" id="panel-certs">
+            <h3 class="panel-title">Certifications & Awards</h3>
+            <div class="items-list" id="certs-list"></div>
+            <button class="btn btn-add" id="btn-add-cert">+ Add Certificate</button>
+          </div>
+
+          <!-- Languages Panel -->
+          <div class="panel" id="panel-languages">
+            <h3 class="panel-title">Languages</h3>
+            <div class="items-list" id="languages-list"></div>
+            <button class="btn btn-add" id="btn-add-language">+ Add Language</button>
+          </div>
+
+          <!-- References Panel -->
+          <div class="panel" id="panel-references">
+            <h3 class="panel-title">References</h3>
+            <div class="items-list" id="references-list"></div>
+            <button class="btn btn-add" id="btn-add-reference">+ Add Reference</button>
+            <div class="panel-hint">Tip: "Available upon request" is acceptable if you prefer privacy.</div>
+          </div>
+
+          <!-- Design Panel -->
+          <div class="panel" id="panel-design">
+            <h3 class="panel-title">Design & Layout</h3>
+            
+            <div class="design-section">
+              <label>Resume Template</label>
+              <div class="template-grid" id="template-grid">
+                <div class="template-card active" data-template="modern">
+                  <div class="template-preview modern-preview"></div>
+                  <span>Modern</span>
+                </div>
+                <div class="template-card" data-template="classic">
+                  <div class="template-preview classic-preview"></div>
+                  <span>Classic</span>
+                </div>
+                <div class="template-card" data-template="minimal">
+                  <div class="template-preview minimal-preview"></div>
+                  <span>Minimal</span>
+                </div>
+                <div class="template-card" data-template="executive">
+                  <div class="template-preview executive-preview"></div>
+                  <span>Executive</span>
+                </div>
+                <div class="template-card" data-template="creative">
+                  <div class="template-preview creative-preview"></div>
+                  <span>Creative</span>
+                </div>
+                <div class="template-card" data-template="two-column">
+                  <div class="template-preview twocol-preview"></div>
+                  <span>Two-Column</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="design-section">
+              <label>Color Theme</label>
+              <div class="color-grid" id="color-grid">
+                <div class="color-card active" data-color="slate" style="--c: #475569"><span>Slate</span></div>
+                <div class="color-card" data-color="navy" style="--c: #1e3a5f"><span>Navy</span></div>
+                <div class="color-card" data-color="forest" style="--c: #166534"><span>Forest</span></div>
+                <div class="color-card" data-color="wine" style="--c: #7f1d1d"><span>Wine</span></div>
+                <div class="color-card" data-color="teal" style="--c: #0f766e"><span>Teal</span></div>
+                <div class="color-card" data-color="indigo" style="--c: #3730a3"><span>Indigo</span></div>
+                <div class="color-card" data-color="rose" style="--c: #be123c"><span>Rose</span></div>
+                <div class="color-card" data-color="amber" style="--c: #b45309"><span>Amber</span></div>
+                <div class="color-card" data-color="mono" style="--c: #171717"><span>Mono</span></div>
+              </div>
+            </div>
+
+            <div class="design-section">
+              <label>Typography</label>
+              <div class="font-select-row">
+                <select id="font-heading">
+                  <option value="Georgia">Georgia (Serif)</option>
+                  <option value="Inter">Inter (Modern)</option>
+                  <option value="Playfair Display">Playfair (Elegant)</option>
+                  <option value="Roboto">Roboto (Clean)</option>
+                </select>
+                <select id="font-body">
+                  <option value="Inter">Inter (Modern)</option>
+                  <option value="Georgia">Georgia (Classic)</option>
+                  <option value="Roboto">Roboto (Clean)</option>
+                  <option value="system-ui">System UI</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="design-section">
+              <label class="checkbox-label">
+                <input type="checkbox" id="toggle-photo" checked>
+                Show profile photo
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="toggle-page-numbers">
+                Show page numbers
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="toggle-section-lines" checked>
+                Show section divider lines
+              </label>
+            </div>
+
+            <div class="design-section section-toggles">
+              <label>Show/Hide Sections</label>
+              <div class="section-toggle-grid">
+                <label class="checkbox-label"><input type="checkbox" data-section="summary" checked> Summary</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="experience" checked> Experience</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="education" checked> Education</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="skills" checked> Skills</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="projects" checked> Projects</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="certificates"> Certificates</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="languages"> Languages</label>
+                <label class="checkbox-label"><input type="checkbox" data-section="references"> References</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Preview -->
+      <main class="preview-area">
+        <div class="preview-toolbar">
+          <div class="zoom-controls">
+            <button class="btn btn-ghost btn-icon" id="btn-zoom-out">−</button>
+            <span id="zoom-level">100%</span>
+            <button class="btn btn-ghost btn-icon" id="btn-zoom-in">+</button>
+            <button class="btn btn-ghost btn-icon" id="btn-fit">Fit</button>
+          </div>
+          <div class="preview-actions">
+            <button class="btn btn-ghost" id="btn-print">Print</button>
+            <button class="btn btn-ghost" id="btn-preview-only">Preview Only</button>
+          </div>
+        </div>
+        <div class="preview-container" id="preview-container">
+          <div class="resume-document" id="resume-document" data-template="modern" data-color="slate">
+            <!-- Resume content injected here -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Modal: New Resume -->
+    <div class="modal" id="modal-new-resume">
+      <div class="modal-content">
+        <h3>Create New Resume</h3>
+        <input type="text" id="new-resume-name" placeholder="Resume name (e.g. Software Engineer 2024)">
+        <div class="modal-actions">
+          <button class="btn btn-ghost" data-close-modal>Cancel</button>
+          <button class="btn btn-primary" id="btn-create-resume">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Confirm Delete -->
+    <div class="modal" id="modal-confirm-delete">
+      <div class="modal-content">
+        <h3>Delete Resume?</h3>
+        <p>This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" data-close-modal>Cancel</button>
+          <button class="btn btn-danger" id="btn-confirm-delete">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="import-file-input" accept=".json" hidden>
+  </div>
+
+  <!-- Scripts -->
+  <script src="src/utils/helpers.js"></script>
+  <script src="src/utils/storage.js"></script>
+  <script src="src/utils/validation.js"></script>
+  <script src="src/utils/history.js"></script>
+  <script src="src/templates/modern.js"></script>
+  <script src="src/templates/classic.js"></script>
+  <script src="src/templates/minimal.js"></script>
+  <script src="src/templates/executive.js"></script>
+  <script src="src/templates/creative.js"></script>
+  <script src="src/templates/two-column.js"></script>
+  <script src="src/components/ResumeManager.js"></script>
+  <script src="src/components/FormManager.js"></script>
+  <script src="src/components/PreviewManager.js"></script>
+  <script src="src/components/DesignManager.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
