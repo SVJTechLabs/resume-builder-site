@@ -117,7 +117,7 @@ body {
 /* App Body */
 .app-body {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-columns: var(--sidebar-width) auto 1fr;
   padding-top: var(--header-height);
   min-height: 100vh;
 }
@@ -1203,34 +1203,58 @@ body {
    Print Styles
    ======================================== */
 
+@page {
+  size: A4;
+  margin: 0;
+}
+
 @media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .app-header,
   .sidebar,
   .preview-toolbar,
-  .toast-container {
+  .toast-container,
+  .resizer {
     display: none !important;
   }
   
   .app-body {
     display: block;
     padding: 0;
+    margin: 0;
+    grid-template-columns: 1fr;
   }
   
   .preview-area {
     padding: 0;
+    margin: 0;
     background: white;
+    overflow: visible;
   }
   
   .preview-container {
     display: block;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
   .resume-document {
-    width: 100%;
-    min-height: auto;
-    box-shadow: none;
+    width: 210mm;
+    min-height: 297mm;
+    box-shadow: none !important;
     padding: 15mm;
+    margin: 0 auto;
     transform: none !important;
+    border: none;
+    position: relative;
+    top: 0;
+    left: 0;
   }
 }
 
