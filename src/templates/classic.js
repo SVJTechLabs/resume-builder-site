@@ -65,7 +65,7 @@ const ClassicTemplate = {
     if (settings.showPhoto !== false && photo) {
       html += `<img src="${escapeAttr(photo)}" class="r-photo" alt="Profile" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:2.5px solid rgba(255,255,255,0.8);box-shadow:0 2px 10px rgba(0,0,0,0.2)">`;
     }
-    html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
+    html += `<h1 class="r-name">${escapeHtml(basics.name) || 'Your Name'}</h1>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
     }
@@ -89,7 +89,7 @@ const ClassicTemplate = {
   renderSection(title, content) {
     return `
       <div class="r-section">
-        <div class="r-section-title">${escapeHtml(title)}</div>
+        <h2 class="r-section-title">${escapeHtml(title)}</h2>
         ${content}
       </div>
     `;

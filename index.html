@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResumeForge v1.0 - Professional Resume Builder</title>
+  <title>ResumeForge v1.0 - Professional Free Resume Builder</title>
+  <meta name="description" content="Create professional, ATS-optimized resumes in minutes with ResumeForge. Multiple templates, real-time preview, and free PDF export.">
+  <meta name="keywords" content="resume builder, cv maker, professional resume, ats resume, free resume tools">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ResumeForge v1.0 - Professional Resume Builder">
+  <meta property="og:description" content="Build your professional resume for free. Clean designs, ATS-ready, and instant PDF download.">
+  <meta property="og:image" content="https://resumeforge.app/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="ResumeForge v1.0 - Professional Resume Builder">
+  <meta property="twitter:description" content="Build your professional resume for free. Clean designs, ATS-ready, and instant PDF download.">
+  <meta property="twitter:image" content="https://resumeforge.app/og-image.jpg">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/templates.css">
 </head>
@@ -45,17 +59,17 @@
         </div>
 
         <!-- Tabs -->
-        <nav class="tabs">
-          <button class="tab active" data-tab="basics">Basics</button>
-          <button class="tab" data-tab="profile">Profile</button>
-          <button class="tab" data-tab="work">Experience</button>
-          <button class="tab" data-tab="education">Education</button>
-          <button class="tab" data-tab="skills">Skills</button>
-          <button class="tab" data-tab="projects">Projects</button>
-          <button class="tab" data-tab="certs">Certificates</button>
-          <button class="tab" data-tab="languages">Languages</button>
-          <button class="tab" data-tab="references">References</button>
-          <button class="tab" data-tab="design">Design</button>
+        <nav class="tabs" role="tablist">
+          <button class="tab active" data-tab="basics" role="tab" aria-selected="true" aria-controls="panel-basics" id="tab-basics">Basics</button>
+          <button class="tab" data-tab="profile" role="tab" aria-selected="false" aria-controls="panel-profile" id="tab-profile">Profile</button>
+          <button class="tab" data-tab="work" role="tab" aria-selected="false" aria-controls="panel-work" id="tab-work">Experience</button>
+          <button class="tab" data-tab="education" role="tab" aria-selected="false" aria-controls="panel-education" id="tab-education">Education</button>
+          <button class="tab" data-tab="skills" role="tab" aria-selected="false" aria-controls="panel-skills" id="tab-skills">Skills</button>
+          <button class="tab" data-tab="projects" role="tab" aria-selected="false" aria-controls="panel-projects" id="tab-projects">Projects</button>
+          <button class="tab" data-tab="certs" role="tab" aria-selected="false" aria-controls="panel-certs" id="tab-certs">Certificates</button>
+          <button class="tab" data-tab="languages" role="tab" aria-selected="false" aria-controls="panel-languages" id="tab-languages">Languages</button>
+          <button class="tab" data-tab="references" role="tab" aria-selected="false" aria-controls="panel-references" id="tab-references">References</button>
+          <button class="tab" data-tab="design" role="tab" aria-selected="false" aria-controls="panel-design" id="tab-design">Design</button>
         </nav>
 
         <!-- Tab Panels -->

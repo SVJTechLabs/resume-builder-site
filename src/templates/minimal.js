@@ -62,7 +62,7 @@ const MinimalTemplate = {
 
   renderHeader(basics) {
     let html = '<div class="r-header">';
-    html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
+    html += `<h1 class="r-name">${escapeHtml(basics.name) || 'Your Name'}</h1>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
     }
@@ -85,7 +85,7 @@ const MinimalTemplate = {
   renderSection(title, content) {
     return `
       <div class="r-section">
-        <div class="r-section-title">${escapeHtml(title)}</div>
+        <h2 class="r-section-title">${escapeHtml(title)}</h2>
         ${content}
       </div>
     `;

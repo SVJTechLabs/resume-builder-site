@@ -42,8 +42,12 @@ function initTabs() {
       const targetTab = tab.dataset.tab;
 
       // Update active tab
-      tabs.forEach(t => t.classList.remove('active'));
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
 
       // Update active panel
       panels.forEach(p => {

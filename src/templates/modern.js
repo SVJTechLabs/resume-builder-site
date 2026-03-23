@@ -63,7 +63,7 @@ const ModernTemplate = {
   renderHeader(basics, photo, settings) {
     let html = '<div class="r-header">';
     html += '<div class="r-header-left">';
-    html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
+    html += `<h1 class="r-name">${escapeHtml(basics.name) || 'Your Name'}</h1>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
     }
@@ -94,7 +94,7 @@ const ModernTemplate = {
   renderSummary(summary) {
     return `
       <div class="r-section">
-        <div class="r-section-title">Professional Summary</div>
+        <h2 class="r-section-title">Professional Summary</h2>
         <div class="r-summary">${escapeHtml(summary)}</div>
       </div>
     `;

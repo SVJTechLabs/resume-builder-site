@@ -60,7 +60,7 @@ const TwoColumnTemplate = {
     let html = '';
     
     // Name
-    html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
+    html += `<h1 class="r-name">${escapeHtml(basics.name) || 'Your Name'}</h1>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
     }
@@ -122,7 +122,7 @@ const TwoColumnTemplate = {
   renderRightSection(title, content) {
     return `
       <div class="r-section-right">
-        <div class="r-section-title">${escapeHtml(title)}</div>
+        <h2 class="r-section-title">${escapeHtml(title)}</h2>
         ${content}
       </div>
     `;

@@ -65,7 +65,7 @@ const CreativeTemplate = {
     if (settings.showPhoto !== false && photo) {
       html += `<img src="${escapeAttr(photo)}" class="r-photo" alt="Profile" style="width:90px;height:90px;border-radius:12px;object-fit:cover;position:absolute;right:0;top:-10px;border:3px solid var(--t-primary);box-shadow:var(--shadow-lg)">`;
     }
-    html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
+    html += `<h1 class="r-name">${escapeHtml(basics.name) || 'Your Name'}</h1>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
     }
@@ -88,7 +88,7 @@ const CreativeTemplate = {
   renderSection(title, content) {
     return `
       <div class="r-section">
-        <div class="r-section-title">${escapeHtml(title)}</div>
+        <h2 class="r-section-title">${escapeHtml(title)}</h2>
         ${content}
       </div>
     `;

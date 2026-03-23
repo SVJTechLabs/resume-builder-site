@@ -418,7 +418,10 @@ class FormManager {
   // ============ UTILITY ============
   triggerChange() {
     if (this.onDataChange) {
-      this.onDataChange(this.resumeData);
+      if (this.changeTimer) clearTimeout(this.changeTimer);
+      this.changeTimer = setTimeout(() => {
+        this.onDataChange(this.resumeData);
+      }, 250);
     }
   }
 
