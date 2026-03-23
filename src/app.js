@@ -97,31 +97,7 @@ function initApp() {
     formManager.setData(resumeData);
     designManager.init(resumeData.settings);
     previewManager.render(resumeData);
-    // Reset history when switching resumes
-    history.init(resumeData);
   };
-
-  // Set up history undo/redo callback
-  history.onUndoRedo = (state, action) => {
-    // Update form with restored state
-    formManager.setData(state);
-    // Update design manager with restored settings
-    designManager.settings = state.settings;
-    designManager.updateUI();
-    // Re-render preview
-    previewManager.render(state);
-    // Save to storage
-    resumeManager.saveCurrentResume(state);
-  };
-
-  // Bind undo/redo buttons
-  document.getElementById('btn-undo')?.addEventListener('click', () => {
-    history.undo();
-  });
-  
-  document.getElementById('btn-redo')?.addEventListener('click', () => {
-    history.redo();
-  });
 
   // Initialize
   try {
@@ -135,9 +111,6 @@ function initApp() {
     sidebarResizer.init();
 
     previewManager.render(resumeData);
-    
-    // Initialize history with starting state
-    history.init(resumeData);
     
     initTabs();
   } catch (err) {
@@ -157,23 +130,6 @@ function initApp() {
 // Global Keyboard Shortcuts
 // ========================================
 document.addEventListener('keydown', (e) => {
-  // Ctrl/Cmd + Z - Undo
-  if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
-    e.preventDefault();
-    history?.undo();
-  }
-
-  // Ctrl/Cmd + Y - Redo
-  if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
-    e.preventDefault();
-    history?.redo();
-  }
-
-  // Ctrl/Cmd + Shift + Z - Redo (alternative)
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z') {
-    e.preventDefault();
-    history?.redo();
-  }
 
   // Ctrl/Cmd + S - Save
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {

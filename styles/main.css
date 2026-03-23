@@ -970,19 +970,23 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100%;
+  padding: 40px 20px;
+  overflow-y: auto;
+  min-height: 0; /* Allow flex shrinking */
 }
 
 .resume-document {
   background: white;
   width: 210mm;
   min-height: 297mm;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 1px 8px rgba(0, 0, 0, 0.1);
   padding: 20mm;
   font-size: 11pt;
   line-height: 1.5;
   transform-origin: top center;
   transition: transform 0.2s ease;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 /* ========================================

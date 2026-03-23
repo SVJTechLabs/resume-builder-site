@@ -29,20 +29,6 @@ class ResumeManager {
       this.createNewResume();
     });
 
-    // Import button
-    document.getElementById('btn-import')?.addEventListener('click', () => {
-      document.getElementById('import-file-input')?.click();
-    });
-
-    // Import file input
-    document.getElementById('import-file-input')?.addEventListener('change', (e) => {
-      this.handleImport(e.target.files[0]);
-    });
-
-    // Export button
-    document.getElementById('btn-export')?.addEventListener('click', () => {
-      this.exportCurrentResume();
-    });
 
     // Dropdown toggle
     const dropdown = document.querySelector('.dropdown');
