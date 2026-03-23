@@ -51,12 +51,20 @@ const CreativeTemplate = {
       html += this.renderSection('Languages', this.renderLanguages(data.languages));
     }
     
+    // References
+    if (visible.references !== false && data.references?.length > 0) {
+      html += this.renderSection('References', this.renderReferences(data.references));
+    }
+    
     html += '</div>';
     return html;
   },
 
   renderHeader(basics, photo, settings) {
     let html = '<div class="r-header">';
+    if (settings.showPhoto !== false && photo) {
+      html += `<img src="${escapeAttr(photo)}" class="r-photo" alt="Profile" style="width:90px;height:90px;border-radius:12px;object-fit:cover;position:absolute;right:0;top:-10px;border:3px solid var(--t-primary);box-shadow:var(--shadow-lg)">`;
+    }
     html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
@@ -68,6 +76,7 @@ const CreativeTemplate = {
     if (basics.location) contacts.push(`<span>${escapeHtml(basics.location)}</span>`);
     if (basics.website) contacts.push(`<span>${escapeHtml(basics.website)}</span>`);
     if (basics.linkedin) contacts.push(`<span>${escapeHtml(basics.linkedin)}</span>`);
+    if (basics.github) contacts.push(`<span>${escapeHtml(basics.github)}</span>`);
     
     if (contacts.length > 0) {
       html += `<div class="r-contact">${contacts.join(' · ')}</div>`;
@@ -142,9 +151,12 @@ const CreativeTemplate = {
   },
 
   renderSkills(skills) {
-    const skillNames = skills.map(s => typeof s === 'string' ? s : s.name);
     return `<div style="display:flex;flex-wrap:wrap;gap:8px">
-      ${skillNames.map(s => `<span style="background:#7f1d1d;color:white;padding:6px 14px;border-radius:20px;font-size:9.5pt;font-weight:500">${escapeHtml(s)}</span>`).join('')}
+      ${skills.map(skill => {
+        const name = typeof skill === 'string' ? skill : skill.name;
+        const level = typeof skill === 'object' && skill.level ? `<small style="opacity:0.8;font-weight:400;margin-left:5px"> — ${escapeHtml(skill.level)}</small>` : '';
+        return `<span style="background:var(--t-primary);color:white;padding:6px 14px;border-radius:20px;font-size:9.5pt;font-weight:500">${escapeHtml(name)}${level}</span>`;
+      }).join('')}
     </div>`;
   },
 
@@ -189,6 +201,21 @@ const CreativeTemplate = {
       html += `<span style="color:#1c1c2e;font-weight:500">${escapeHtml(lang.name)}</span>`;
       if (lang.level) {
         html += `<span style="color:#737373;font-size:9.5pt">${escapeHtml(lang.level)}</span>`;
+      }
+      html += '</div>';
+      return html;
+    }).join('');
+  },
+
+  renderReferences(refs) {
+    return refs.map(ref => {
+      let html = '<div style="margin-bottom:14px">';
+      html += `<div style="font-size:11.5pt;font-weight:700;color:#1c1c2e">${escapeHtml(ref.name)}</div>`;
+      if (ref.title || ref.company) {
+        html += `<div style="font-size:10pt;color:#7f1d1d;font-weight:600">${[ref.title, ref.company].filter(Boolean).join(', ')}</div>`;
+      }
+      if (ref.email || ref.phone) {
+        html += `<div style="font-size:10pt;color:#525252">${[ref.email, ref.phone].filter(Boolean).join(' · ')}</div>`;
       }
       html += '</div>';
       return html;

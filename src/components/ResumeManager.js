@@ -215,10 +215,11 @@ class ResumeManager {
     } catch (e) {
       showToast('Error importing file', 'error');
       console.error(e);
+    } finally {
+      // Reset file input to allow re-importing same file
+      const fileInput = document.getElementById('import-file-input');
+      if (fileInput) fileInput.value = '';
     }
-    
-    // Reset file input
-    document.getElementById('import-file-input').value = '';
   }
 
   renderResumeList() {
@@ -271,3 +272,6 @@ class ResumeManager {
     return this.currentResume;
   }
 }
+
+// Create global instance
+const resumeManager = new ResumeManager();

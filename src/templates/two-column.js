@@ -46,6 +46,11 @@ const TwoColumnTemplate = {
       html += this.renderRightSection('Certifications', this.renderCertificates(data.certificates));
     }
     
+    // References
+    if (visible.references !== false && data.references?.length > 0) {
+      html += this.renderRightSection('References', this.renderReferences(data.references));
+    }
+    
     html += '</div>';
     html += '</div>';
     return html;
@@ -80,6 +85,9 @@ const TwoColumnTemplate = {
     if (basics.website) {
       html += `<div class="r-contact-item">${escapeHtml(basics.website)}</div>`;
     }
+    if (basics.github) {
+      html += `<div class="r-contact-item">${escapeHtml(basics.github)}</div>`;
+    }
     html += '</div>';
     
     // Skills in left column
@@ -88,8 +96,8 @@ const TwoColumnTemplate = {
       html += '<div class="r-skills-title">Skills</div>';
       data.skills.forEach(skill => {
         const skillName = typeof skill === 'string' ? skill : skill.name;
-        const level = typeof skill === 'object' && skill.level ? ` — ${skill.level}` : '';
-        html += `<div class="r-skill-left">${escapeHtml(skillName)}${escapeHtml(level)}</div>`;
+        const level = typeof skill === 'object' && skill.level ? `<small style="opacity:0.7;font-size:0.85em;margin-left:3px"> — ${escapeHtml(skill.level)}</small>` : '';
+        html += `<div class="r-skill-left">${escapeHtml(skillName)}${level}</div>`;
       });
       html += '</div>';
     }
@@ -202,6 +210,21 @@ const TwoColumnTemplate = {
       html += '</div>';
       if (cert.date) {
         html += `<div style="font-size:9pt;color:#64748b;font-family:monospace;white-space:nowrap">${escapeHtml(cert.date)}</div>`;
+      }
+      html += '</div>';
+      return html;
+    }).join('');
+  },
+
+  renderReferences(refs) {
+    return refs.map(ref => {
+      let html = '<div style="margin-bottom:12px">';
+      html += `<div style="font-size:10.5pt;font-weight:700;color:#1e293b">${escapeHtml(ref.name)}</div>`;
+      if (ref.title || ref.company) {
+        html += `<div style="font-size:9.5pt;color:#475569">${[ref.title, ref.company].filter(Boolean).join(', ')}</div>`;
+      }
+      if (ref.email || ref.phone) {
+        html += `<div style="font-size:9pt;color:#64748b">${[ref.email, ref.phone].filter(Boolean).join(' · ')}</div>`;
       }
       html += '</div>';
       return html;

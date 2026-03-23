@@ -193,6 +193,7 @@ class FormManager {
   }
 
   removeItem(type, id) {
+    if (!confirm(`Are you sure you want to remove this ${type} item?`)) return;
     this.resumeData[type] = this.resumeData[type].filter(item => item.id !== id);
     this.renderList(type);
     this.triggerChange();
@@ -269,18 +270,22 @@ class FormManager {
       const isTextarea = field === 'description';
       
       html += `<div class="${isWide ? 'wide' : ''}">`;
-      html += `<input type="text" 
-        placeholder="${labels[type][field]}"
-        value="${escapeAttr(item[field] || '')}"
-        data-item-id="${item.id}"
-        data-field="${field}"`;
       
       if (isTextarea) {
-        html = html.replace('type="text"', '');
-        html += ` style="min-height:80px;resize:vertical;padding:8px"`;
+        html += `<textarea 
+          placeholder="${labels[type][field]}"
+          data-item-id="${item.id}"
+          data-field="${field}"
+          style="min-height:80px;resize:vertical;padding:8px;width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;font-family:inherit;"
+        >${escapeHtml(item[field] || '')}</textarea>`;
+      } else {
+        html += `<input type="text" 
+          placeholder="${labels[type][field]}"
+          value="${escapeAttr(item[field] || '')}"
+          data-item-id="${item.id}"
+          data-field="${field}">`;
       }
       
-      html += `>`;
       html += `</div>`;
     });
     
@@ -314,6 +319,19 @@ class FormManager {
         el.addEventListener('click', () => {
           this.addSkillByName(el.dataset.skill);
         });
+      });
+    }
+
+    // Use event delegation for skill removal
+    const tagsContainer = document.getElementById('skills-tags');
+    if (tagsContainer) {
+      tagsContainer.addEventListener('click', (e) => {
+        const removeBtn = e.target.closest('.remove');
+        if (removeBtn) {
+          e.stopPropagation();
+          const name = removeBtn.getAttribute('data-skill');
+          if (name) this.removeSkill(name);
+        }
       });
     }
   }
@@ -369,6 +387,7 @@ class FormManager {
   }
 
   removeSkill(name) {
+    if (!confirm(`Remove skill: ${name}?`)) return;
     this.resumeData.skills = this.resumeData.skills.filter(s => {
       const skillName = typeof s === 'string' ? s : s.name;
       return skillName !== name;
@@ -394,10 +413,6 @@ class FormManager {
         <span class="remove" data-skill="${escapeAttr(name)}">×</span>
       </span>`;
     }).join('');
-    
-    container.querySelectorAll('.remove').forEach(btn => {
-      btn.addEventListener('click', () => this.removeSkill(btn.dataset.skill));
-    });
   }
 
   // ============ UTILITY ============
@@ -419,3 +434,6 @@ class FormManager {
     this.renderSkills();
   }
 }
+
+// Create global instance
+const formManager = new FormManager();

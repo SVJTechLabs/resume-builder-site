@@ -166,6 +166,12 @@
   font-size: 10pt;
 }
 
+.template-modern .r-skill-level {
+  opacity: 0.8;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
 .template-modern .r-project {
   margin-bottom: 14px;
 }

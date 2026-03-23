@@ -51,6 +51,11 @@ const ExecutiveTemplate = {
       html += this.renderSection('Key Projects', this.renderProjects(data.projects));
     }
     
+    // References
+    if (visible.references !== false && data.references?.length > 0) {
+      html += this.renderSection('References', this.renderReferences(data.references));
+    }
+    
     html += '</div>';
     html += '</div>';
     return html;
@@ -82,6 +87,9 @@ const ExecutiveTemplate = {
     if (basics.website) {
       html += `<div class="r-contact-item"><div class="r-contact-label">Website</div>${escapeHtml(basics.website)}</div>`;
     }
+    if (basics.github) {
+      html += `<div class="r-contact-item"><div class="r-contact-label">GitHub</div>${escapeHtml(basics.github)}</div>`;
+    }
     html += '</div>';
     
     // Languages in sidebar
@@ -111,9 +119,12 @@ const ExecutiveTemplate = {
   },
 
   renderCompetencies(skills) {
-    const skillNames = skills.map(s => typeof s === 'string' ? s : s.name);
     return `<div style="display:flex;flex-wrap:wrap;gap:8px">
-      ${skillNames.map(s => `<span style="background:#f1f5f9;padding:4px 12px;border-radius:4px;font-size:9.5pt">${escapeHtml(s)}</span>`).join('')}
+      ${skills.map(skill => {
+        const name = typeof skill === 'string' ? skill : skill.name;
+        const level = typeof skill === 'object' && skill.level ? `<small style="opacity:0.7;font-weight:400;margin-left:4px"> — ${escapeHtml(skill.level)}</small>` : '';
+        return `<span style="background:#f1f5f9;padding:4px 12px;border-radius:4px;font-size:9.5pt">${escapeHtml(name)}${level}</span>`;
+      }).join('')}
     </div>`;
   },
 
@@ -187,12 +198,43 @@ const ExecutiveTemplate = {
   renderProjects(projects) {
     return projects.map(proj => {
       let html = '<div style="margin-bottom:14px">';
+      html += `<div style="display:flex;justify-content:space-between;align-items:baseline">`;
       html += `<div style="font-size:11pt;font-weight:700;color:#1e293b">${escapeHtml(proj.name) || 'Project'}</div>`;
+      if (proj.link) {
+        html += `<a href="${escapeAttr(proj.link)}" style="font-size:8.5pt;color:#3b82f6;text-decoration:none">View Project →</a>`;
+      }
+      html += '</div>';
       if (proj.tech) {
-        html += `<div style="font-size:9pt;color:#b84c2e;text-transform:uppercase;letter-spacing:0.03em">${escapeHtml(proj.tech)}</div>`;
+        html += `<div style="font-size:9pt;color:#b84c2e;text-transform:uppercase;letter-spacing:0.03em;margin-top:2px">${escapeHtml(proj.tech)}</div>`;
       }
       if (proj.description) {
         html += `<div style="font-size:10pt;line-height:1.6;color:#334155;margin-top:4px">${escapeHtml(proj.description)}</div>`;
+      }
+      html += '</div>';
+      return html;
+    }).join('');
+  },
+
+  renderLanguages(languages) {
+    return `<div style="display:flex;flex-wrap:wrap;gap:12px">
+      ${languages.map(lang => `
+        <div style="font-size:10pt">
+          <span style="font-weight:600;color:#1e293b">${escapeHtml(lang.name)}</span>
+          ${lang.level ? `<span style="color:#64748b;margin-left:4px">(${escapeHtml(lang.level)})</span>` : ''}
+        </div>
+      `).join('')}
+    </div>`;
+  },
+
+  renderReferences(refs) {
+    return refs.map(ref => {
+      let html = '<div style="margin-bottom:12px">';
+      html += `<div style="font-size:10.5pt;font-weight:600;color:#1e293b">${escapeHtml(ref.name)}</div>`;
+      if (ref.title || ref.company) {
+        html += `<div style="font-size:9.5pt;color:#475569">${[ref.title, ref.company].filter(Boolean).join(', ')}</div>`;
+      }
+      if (ref.email || ref.phone) {
+        html += `<div style="font-size:9pt;color:#64748b">${[ref.email, ref.phone].filter(Boolean).join(' · ')}</div>`;
       }
       html += '</div>';
       return html;

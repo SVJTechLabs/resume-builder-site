@@ -2,11 +2,8 @@
 // ResumeForge v1.0 - Main Application
 // ========================================
 
-// Global instances
-let resumeManager;
-let formManager;
-let previewManager;
-let designManager;
+// Global instances are created in their respective files (ResumeManager.js, etc.)
+// and are accessible here because they are loaded in the global scope.
 
 // Toast notification system
 function showToast(message, type = 'info', duration = 3000) {
@@ -57,6 +54,16 @@ function initTabs() {
       window.location.hash = targetTab;
     });
   });
+  
+  // Mobile section navigation
+  const mobileSelect = document.getElementById('mobile-section-select');
+  if (mobileSelect) {
+    mobileSelect.addEventListener('change', (e) => {
+      const targetTab = e.target.value;
+      const tabBtn = document.querySelector(`.tab[data-tab="${targetTab}"]`);
+      if (tabBtn) tabBtn.click();
+    });
+  }
 
   // Check URL hash on load
   const hash = window.location.hash.replace('#', '');
@@ -70,11 +77,8 @@ function initTabs() {
 // Main App Initialization
 // ========================================
 function initApp() {
-  // Initialize managers
-  resumeManager = new ResumeManager();
-  formManager = new FormManager();
-  previewManager = new PreviewManager();
-  designManager = new DesignManager();
+  // Use existing global instances
+  // resumeManager, formManager, previewManager, designManager are already created globally
 
   // Set up callbacks
   formManager.onDataChange = (data) => {
@@ -120,17 +124,21 @@ function initApp() {
   });
 
   // Initialize
-  const resumeData = resumeManager.init();
-  
-  formManager.init(resumeData);
-  designManager.init(resumeData.settings);
-  previewManager.init();
-  previewManager.render(resumeData);
-  
-  // Initialize history with starting state
-  history.init(resumeData);
-  
-  initTabs();
+  try {
+    const resumeData = resumeManager.init();
+    formManager.init(resumeData);
+    designManager.init(resumeData.settings);
+    previewManager.init();
+    previewManager.render(resumeData);
+    
+    // Initialize history with starting state
+    history.init(resumeData);
+    
+    initTabs();
+  } catch (err) {
+    console.error('Error during app initialization:', err);
+    showToast('App initialization error. Check console.', 'error');
+  }
 
   // Setup autosave
   storage.onAutosave = () => {

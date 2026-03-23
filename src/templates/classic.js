@@ -14,7 +14,7 @@ const ClassicTemplate = {
     let html = '<div class="template-classic">';
     
     // Header with centered layout
-    html += this.renderHeader(basics, settings);
+    html += this.renderHeader(basics, data.photo, settings);
     
     // Summary
     if (visible.summary !== false && basics.summary) {
@@ -51,12 +51,20 @@ const ClassicTemplate = {
       html += this.renderSection('Languages', this.renderLanguages(data.languages));
     }
     
+    // References
+    if (visible.references !== false && data.references?.length > 0) {
+      html += this.renderSection('References', this.renderReferences(data.references));
+    }
+    
     html += '</div>';
     return html;
   },
 
-  renderHeader(basics, settings) {
+  renderHeader(basics, photo, settings) {
     let html = '<div class="r-header">';
+    if (settings.showPhoto !== false && photo) {
+      html += `<img src="${escapeAttr(photo)}" class="r-photo" alt="Profile" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:2.5px solid rgba(255,255,255,0.8);box-shadow:0 2px 10px rgba(0,0,0,0.2)">`;
+    }
     html += `<div class="r-name">${escapeHtml(basics.name) || 'Your Name'}</div>`;
     if (basics.title) {
       html += `<div class="r-title">${escapeHtml(basics.title)}</div>`;
@@ -68,6 +76,8 @@ const ClassicTemplate = {
     if (basics.phone) contacts.push(`<span>${escapeHtml(basics.phone)}</span>`);
     if (basics.location) contacts.push(`<span>${escapeHtml(basics.location)}</span>`);
     if (basics.website) contacts.push(`<span>${escapeHtml(basics.website)}</span>`);
+    if (basics.linkedin) contacts.push(`<span>${escapeHtml(basics.linkedin)}</span>`);
+    if (basics.github) contacts.push(`<span>${escapeHtml(basics.github)}</span>`);
     
     if (contacts.length > 0) {
       html += `<div class="r-contact">${contacts.join('')}</div>`;
@@ -145,8 +155,12 @@ const ClassicTemplate = {
   },
 
   renderSkills(skills) {
-    const skillNames = skills.map(s => typeof s === 'string' ? s : s.name);
-    return `<p style="text-align:center;font-size:11pt">${escapeHtml(skillNames.join(' • '))}</p>`;
+    const skillsText = skills.map(skill => {
+      const name = typeof skill === 'string' ? skill : skill.name;
+      const level = typeof skill === 'object' && skill.level ? ` (${skill.level})` : '';
+      return name + level;
+    }).join(' • ');
+    return `<p style="text-align:center;font-size:11pt">${escapeHtml(skillsText)}</p>`;
   },
 
   renderProjects(projects) {
@@ -191,6 +205,27 @@ const ClassicTemplate = {
         text += ` (${escapeHtml(lang.level)})`;
       }
       return `<span style="margin-right:20px;font-size:11pt">${text}</span>`;
+    }).join('');
+  },
+
+  renderReferences(refs) {
+    return refs.map(ref => {
+      let html = '<div class="r-job" style="text-align:center">';
+      html += `<div class="r-job-title">${escapeHtml(ref.name) || 'Reference Name'}</div>`;
+      if (ref.title || ref.company) {
+        let info = [];
+        if (ref.title) info.push(escapeHtml(ref.title));
+        if (ref.company) info.push(escapeHtml(ref.company));
+        html += `<div style="font-size:10.5pt;color:#475569">${info.join(', ')}</div>`;
+      }
+      if (ref.email || ref.phone) {
+        let contact = [];
+        if (ref.email) contact.push(escapeHtml(ref.email));
+        if (ref.phone) contact.push(escapeHtml(ref.phone));
+        html += `<div style="font-size:10pt;color:#64748b">${contact.join(' · ')}</div>`;
+      }
+      html += '</div>';
+      return html;
     }).join('');
   }
 };

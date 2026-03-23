@@ -233,8 +233,9 @@ class PreviewManager {
   }
 
   print() {
-    // Validate before print
-    const ready = validator.isReadyForExport(formManager.getData());
+    // Validate before print using current resume data
+    const currentData = resumeManager?.getCurrentResume();
+    const ready = validator.isReadyForExport(currentData);
     
     if (!ready.ready) {
       const missing = ready.missing.join(', ');
@@ -256,12 +257,12 @@ class PreviewManager {
 
     if (isFullscreen) {
       previewArea.classList.remove('fullscreen');
-      sidebar?.style.display = '';
+      if (sidebar) sidebar.style.display = '';
       appBody.style.gridTemplateColumns = '';
       document.getElementById('btn-preview-only').textContent = 'Preview Only';
     } else {
       previewArea.classList.add('fullscreen');
-      sidebar.style.display = 'none';
+      if (sidebar) sidebar.style.display = 'none';
       appBody.style.gridTemplateColumns = '1fr';
       document.getElementById('btn-preview-only').textContent = 'Exit Preview';
     }
@@ -442,3 +443,9 @@ class DesignManager {
     return this.settings;
   }
 }
+
+// Create global instance
+const designManager = new DesignManager();
+
+// Create global instance
+const previewManager = new PreviewManager();

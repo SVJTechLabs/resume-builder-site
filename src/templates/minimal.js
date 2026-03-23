@@ -51,6 +51,11 @@ const MinimalTemplate = {
       html += this.renderSection('Languages', this.renderLanguages(data.languages));
     }
     
+    // References
+    if (visible.references !== false && data.references?.length > 0) {
+      html += this.renderSection('References', this.renderReferences(data.references));
+    }
+    
     html += '</div>';
     return html;
   },
@@ -67,6 +72,8 @@ const MinimalTemplate = {
     if (basics.phone) contacts.push(escapeHtml(basics.phone));
     if (basics.location) contacts.push(escapeHtml(basics.location));
     if (basics.website) contacts.push(escapeHtml(basics.website));
+    if (basics.linkedin) contacts.push(escapeHtml(basics.linkedin));
+    if (basics.github) contacts.push(escapeHtml(basics.github));
     
     if (contacts.length > 0) {
       html += `<div class="r-contact">${contacts.join(' · ')}</div>`;
@@ -132,14 +139,22 @@ const MinimalTemplate = {
   },
 
   renderSkills(skills) {
-    const skillNames = skills.map(s => typeof s === 'string' ? s : s.name);
-    return `<p style="font-size:10.5pt;line-height:1.6">${skillNames.map(s => escapeHtml(s)).join(', ')}</p>`;
+    const skillsText = skills.map(skill => {
+      const name = typeof skill === 'string' ? skill : skill.name;
+      const level = typeof skill === 'object' && skill.level ? ` (${skill.level})` : '';
+      return escapeHtml(name + level);
+    }).join(', ');
+    return `<p style="font-size:10.5pt;line-height:1.6">${skillsText}</p>`;
   },
 
   renderProjects(projects) {
     return projects.map(proj => {
       let html = '<div class="r-job">';
-      html += `<div class="r-job-title">${escapeHtml(proj.name) || 'Project'}</div>`;
+      html += `<div class="r-job-title">${escapeHtml(proj.name) || 'Project'}`;
+      if (proj.link) {
+        html += ` <span style="font-size:9pt;font-weight:400;color:#737373">(${escapeHtml(proj.link)})</span>`;
+      }
+      html += '</div>';
       if (proj.tech) {
         html += `<div style="font-size:9.5pt;color:#525252">${escapeHtml(proj.tech)}</div>`;
       }
@@ -174,6 +189,27 @@ const MinimalTemplate = {
         text += ` — ${escapeHtml(lang.level)}`;
       }
       return `<div style="font-size:10.5pt;margin-bottom:4px">${text}</div>`;
+    }).join('');
+  },
+
+  renderReferences(refs) {
+    return refs.map(ref => {
+      let html = '<div class="r-job">';
+      html += `<div class="r-job-title">${escapeHtml(ref.name) || 'Reference Name'}</div>`;
+      if (ref.title || ref.company) {
+        let info = [];
+        if (ref.title) info.push(escapeHtml(ref.title));
+        if (ref.company) info.push(escapeHtml(ref.company));
+        html += `<div class="r-job-company">${info.join(', ')}</div>`;
+      }
+      if (ref.email || ref.phone) {
+        let contact = [];
+        if (ref.email) contact.push(escapeHtml(ref.email));
+        if (ref.phone) contact.push(escapeHtml(ref.phone));
+        html += `<div style="font-size:9pt;color:#737373">${contact.join(' · ')}</div>`;
+      }
+      html += '</div>';
+      return html;
     }).join('');
   }
 };

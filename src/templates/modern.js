@@ -171,7 +171,8 @@ const ModernTemplate = {
     
     skills.forEach(skill => {
       const skillName = typeof skill === 'string' ? skill : skill.name;
-      html += `<span class="r-skill">${escapeHtml(skillName)}</span>`;
+      const level = typeof skill === 'object' && skill.level ? `<small class="r-skill-level"> (${escapeHtml(skill.level)})</small>` : '';
+      html += `<span class="r-skill">${escapeHtml(skillName)}${level}</span>`;
     });
     
     html += '</div></div>';

@@ -667,11 +667,17 @@ body {
 .skill-tag .remove {
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.15s;
+  transition: all 0.2s;
+  padding: 2px 6px;
+  margin-left: 6px;
+  margin-right: -4px;
+  border-radius: 4px;
 }
 
 .skill-tag .remove:hover {
   opacity: 1;
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
 }
 
 @keyframes popIn {

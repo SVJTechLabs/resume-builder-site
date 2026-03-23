@@ -134,18 +134,31 @@ class Validator {
    * Check if resume is ready for export
    */
   isReadyForExport(resumeData) {
-    const checks = {
-      hasName: !!resumeData.basics?.name?.trim(),
-      hasEmail: !!resumeData.basics?.email?.trim(),
-      hasContent: this.hasMinimumContent(resumeData)
-    };
+    const hasName = !!resumeData.basics?.name?.trim();
+    const hasEmail = !!resumeData.basics?.email?.trim();
+    const hasMinContent = this.hasMinimumContent(resumeData);
+    
+    const settings = resumeData.settings || {};
+    const visible = settings.visibleSections || {};
+    
+    // Check if visible sections are empty
+    const emptySections = [];
+    if (visible.experience && (!resumeData.work || resumeData.work.length === 0)) emptySections.push('Experience');
+    if (visible.education && (!resumeData.education || resumeData.education.length === 0)) emptySections.push('Education');
+    if (visible.skills && (!resumeData.skills || resumeData.skills.length === 0)) emptySections.push('Skills');
+
+    const checks = { hasName, hasEmail, hasMinContent };
+    const missing = [];
+    if (!hasName) missing.push('Full Name');
+    if (!hasEmail) missing.push('Email');
+    if (!hasMinContent) missing.push('At least one resume section');
 
     return {
-      ready: checks.hasName && checks.hasEmail,
+      ready: hasName && hasEmail,
+      warn: emptySections.length > 0,
       checks,
-      missing: Object.entries(checks)
-        .filter(([, value]) => !value)
-        .map(([key]) => key)
+      missing,
+      emptySections
     };
   }
 
